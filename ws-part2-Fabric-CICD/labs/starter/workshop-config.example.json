@@ -1,0 +1,15 @@
+{
+  "github_repository": "<owner>/fabric-cicd-workshop-<suffix>",
+  "capacity_name": "<existing-active-capacity>",
+  "workspaces": {
+    "dev": "wk-dev-<suffix>",
+    "branch": "wk-dev-a-<suffix>",
+    "test": "wk-test-<suffix>",
+    "production": "wk-prod-<suffix>"
+  },
+  "deployment_pipeline": "wk-pipeline-<suffix>",
+  "git_directory": "/fabric",
+  "feature_branch": "feature/sales-tax",
+  "lakehouse": "lh_workshop",
+  "notebook": "nb_workshop"
+}

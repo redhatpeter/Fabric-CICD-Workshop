@@ -1,0 +1,114 @@
+# Presenter notes and answers
+
+Keep this folder out of the attendee repository and out of the attendee's VS Code
+workspace. The reference solution is the final state, not a starter.
+
+## Rehearse locally
+
+From the Part 1 `labs` folder:
+
+**macOS / WSL2 / Ubuntu:**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r starter/requirements-dev.txt
+python presenter/verify_materials.py
+cd starter
+python -m pytest -q
+cd ../presenter/solution
+python -m pytest -q
+python summarize.py ../../starter/data/sales.csv
+python summarize.py ../../starter/data/empty.csv
+```
+
+**Windows PowerShell:**
+
+```powershell
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r starter/requirements-dev.txt
+python presenter/verify_materials.py
+cd starter
+python -m pytest -q
+cd ../presenter/solution
+python -m pytest -q
+python summarize.py ../../starter/data/sales.csv
+python summarize.py ../../starter/data/empty.csv
+```
+
+If activation is blocked, use the virtual environment executable by its absolute
+path throughout; avoid changing execution policy. The solution tests deliberately
+read the shared fixtures from `starter/data`; run them here, not after copying
+the test module alone into an attendee repository.
+
+The starter should have two passing tests and display 118.75. The reference
+solution should pass all its tests and display 158.33 for normal data and 0.00 for
+header-only data. The validator checks syntax and local file links, not portal
+features, Markdown anchor correctness or actual customization discovery.
+
+## Expected changes by lab
+
+| Lab | Smallest useful answer |
+| --- | --- |
+| GH3 | Implement `top_region`, add its tests, rename `load` and all callers to `load_rows` |
+| GH4 | Divide by `len(totals)` instead of `len(rows)`; test with `pytest.approx(475 / 3)` |
+| GH5 | Use the templates below if generation fails; observe tools/context, not only a verbal claim |
+| GH6 | Add `--region`, filter before summarizing, explicitly reject an unknown region |
+| GH7 | Validate headers/rows in `load_rows`, raise useful `ValueError`s, handle errors at the CLI boundary |
+| GH8 | Show proposed content, stop for approval, deny it and verify the disposable file |
+| GH9 | Use `0.0` if totals are empty; add function and CLI tests; keep a no-header file invalid |
+
+The top-region helper returns `None` for empty totals from GH3 onward; that is
+separate from the empty CSV report added in GH9.
+
+Use [the completed script](./solution/summarize.py) and
+[reference tests](./solution/tests/test_summarize.py) as an answer key. Give an
+attendee only the relevant change. Do not copy the full solution before GH9:
+it would remove the later exercises. Generated solutions can differ if they
+satisfy the documented business rules and checks.
+
+## Template destinations in the attendee repository
+
+These files are intentionally outside an active `.github` folder in the materials.
+Copy each to its destination only when needed for GH5/GH7.
+
+| Template | Destination |
+| --- | --- |
+| [Repository instructions](./templates/copilot-instructions.md) | `.github/copilot-instructions.md` |
+| [Python instructions](./templates/python.instructions.md) | `.github/instructions/python.instructions.md` |
+| [Agent instructions](./templates/AGENTS.md) | `AGENTS.md` |
+| [Reviewer](./templates/reviewer.agent.md) | `.github/agents/reviewer.agent.md` |
+| [Review prompt](./templates/review-changes.prompt.md) | `.github/prompts/review-changes.prompt.md` |
+| [Skill](./templates/summarize-csv/SKILL.md) | `.github/skills/summarize-csv/SKILL.md` |
+| [Test workflow](./templates/tests.yml) | `.github/workflows/tests.yml` |
+| [Agent setup workflow](./templates/copilot-setup-steps.yml) | `.github/workflows/copilot-setup-steps.yml` |
+
+Confirm `read` and `search` are supported tool aliases in the target VS Code
+version and that the reviewer has no edit, execute or delegation tool.
+The review prompt needs a supplied diff; the reviewer cannot run Git itself.
+Verify discovery in a new chat after copying.
+
+## Your manual walkthrough
+
+- [ ] Copy only the starter into a fresh demo folder; open only that folder.
+- [ ] Follow GH2 commands in your chosen OS, including a new terminal/interpreter selection.
+- [ ] Complete GH3 without fixing the average.
+- [ ] Compare GH4 modes from the same baseline; skip Edit if undo is unclear.
+- [ ] Confirm customizations load and reviewer restrictions are enforced by its tool list.
+- [ ] Try GH6, then confirm GH7/GH9 also make sense without the optional filter.
+- [ ] Put both workflows on `main`; confirm tests run in GitHub Actions.
+- [ ] Open the GH7 issue, run the cloud task and review its PR.
+- [ ] Confirm code review and Spaces availability in the actual attendee organization.
+- [ ] Deny the GH8 write and confirm the file did not change.
+- [ ] Complete the GH9 PR and rerun tests on local `main`.
+- [ ] Review the Part 2 starter kit after removing demo-specific rules.
+
+Before the live session, keep one reviewed validation PR available in your own
+demo repo so you can show its diff/checks if cloud policy or latency blocks a
+live run. No GitHub resources are created by these materials or the validator.
+
+For recovery, attendees should save their work and use a new copy, or you can
+apply only the needed answer from the reference. There is no reset/delete script.
+Do not promise reproducible Copilot wording, latency, feature availability or UI
+labels; rehearse those in your actual account.

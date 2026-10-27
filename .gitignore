@@ -1,0 +1,19 @@
+# Local Python environments and generated caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Local credentials and attendee-specific configuration
+.env
+.env.*
+!.env.example
+workshop-config.local.json
+*.pem
+*.key
+
+# Operating-system files
+.DS_Store
+Thumbs.db
