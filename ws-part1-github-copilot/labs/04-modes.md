@@ -6,6 +6,13 @@
 Read the average rule in your demo README. The total is 475 across three regions,
 so the expected average is approximately **158.33**, not the current 118.75.
 
+Before starting, run `git status --short`: it should print nothing. Confirm
+`python summarize.py data/sales.csv` still ends in 118.75. If it already shows
+158.33, review where the fix happened; do not deliberately break working code to
+replay this lab. Observe the comparison or use a separate fresh exercise copy.
+Attach the script, README and CSV to each new chat so the comparison uses the
+same context.
+
 ## Compare without fixing the bug too early
 
 1. **Ask**, new chat:
@@ -47,6 +54,12 @@ git diff
 The last output line is `Average per region: 158.33`. The new test checks the
 unrounded value with `pytest.approx(475 / 3)`, not a fragile float equality.
 All prior tests still pass. Commit the fix.
+
+For a stronger regression check, add/run the average test before changing the
+denominator: it should fail with 118.75 versus `pytest.approx(475 / 3)`. After the
+fix it must pass. If the generated test checks only regional totals, it cannot
+catch this bug. Expect at least 6 cases after GH3's three helper cases plus this
+test. The header-only fixture is deliberately not a passing report yet.
 
 **If blocked:** change only the denominator and add the one regression test.
 Do not resolve empty input now; it is the capstone.

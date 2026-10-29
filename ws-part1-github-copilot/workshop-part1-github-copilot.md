@@ -558,13 +558,19 @@ authentication and admin checks into prework to reduce live setup time.
 
 ## What has and hasn't been tested
 
-**Local lab checks (2026-10-23, Linux / Python 3.12):**
+**Local lab checks (2026-10-29, Linux / Python 3.12):**
 
 - Starter: two baseline tests pass; normal output retains the exercise's 118.75 average.
 - Completed reference: 24 tests pass, covering calculations, the optional filter,
   empty input, validation and CLI error behavior.
-- Material checks: starter output, Python syntax and local Markdown file targets pass.
+- Staged local rehearsal: helper, average fix, optional filter, validation and
+  capstone checks pass, including the path that skips the optional filter.
+- Material checks: clean starter copy, reference CLI examples, Python syntax and
+  local Markdown file targets pass. Copy only GH2's allowlisted starter files,
+  not a working copy's Git metadata or environment folders.
 - See the [presenter guide](./labs/presenter/README.md) to repeat these checks.
+  Its dry-run record distinguishes explicitly applied local changes from live
+  Copilot actions; no remote repositories/issues/PRs were created during rehearsal.
   Windows/macOS commands, other Python versions, live Copilot customization loading
   and GitHub workflows still require the manual walkthrough.
 

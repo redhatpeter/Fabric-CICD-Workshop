@@ -5,7 +5,8 @@ All data is synthetic. No Azure, Fabric, database or production access is needed
 
 **Start with [GH2 setup](./02-setup.md)** before running the coding exercises.
 Copy only the contents of [starter](./starter/) into your own `copilot-workshop-demo`
-folder. Open that folder in VS Code, not this entire materials folder: otherwise
+folder, following GH2's explicit file list; do not copy any local `.git` or
+environment/cache folders. Open that folder in VS Code, not this entire materials folder: otherwise
 Copilot may find the presenter answers.
 
 ## Follow this order
@@ -36,6 +37,10 @@ more than matching a screenshot.
 - Commit your work at the end of each lab. Do not merge unrelated work together.
 - Never copy real customer data, passwords or tokens into this exercise.
 - GH6 can be skipped. GH7 and GH9 must not require the optional filter.
+- Copilot/`gh` use GitHub accounts; Fabric and Azure sign-ins are not prerequisites.
+  Check each tool's account rather than changing an unrelated extension's login.
+- A local test pass is not proof of live agent discovery, approval enforcement
+  or a GitHub Actions/PR pass. Record those checkpoints separately.
 
 When a lab says to commit, review first:
 

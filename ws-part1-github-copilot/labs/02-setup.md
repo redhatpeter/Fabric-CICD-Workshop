@@ -8,12 +8,28 @@ has installation commands.
 ## 1. Copy the starter
 
 Create a new folder called `copilot-workshop-demo` **outside the workshop materials**.
-Copy everything inside [starter](./starter/), including the hidden `.gitignore`,
-into it. Use your file manager or VS Code Explorer. Do not copy the enclosing
-`starter` folder, lab instructions or presenter solutions.
+Copy only these items from [starter](./starter/), including the hidden `.gitignore`:
+
+```text
+.gitignore
+README.md
+data/
+tests/
+pytest.ini
+requirements-dev.txt
+summarize.py
+```
+
+Use your file manager or VS Code Explorer. Do not copy the enclosing `starter`
+folder, lab instructions, presenter solutions, `.git`, `.venv`, `__pycache__`
+or `.pytest_cache`. A presenter's working copy may contain those local folders;
+copying `.git` would also copy its history and remotes.
 
 Open the new folder in VS Code and open its terminal. You should see
 `summarize.py`, `README.md`, `data`, `tests`, `pytest.ini` and `requirements-dev.txt`.
+Use **File > Open Folder** (or a new window) so this is the only project root.
+Keep the lab instructions in a browser or separate window. Trust only your own
+reviewed demo folder if VS Code asks; Restricted Mode can disable agent features.
 
 ## 2. Create a virtual environment
 
@@ -43,6 +59,17 @@ approved installation process. In WSL, keep the project and tools inside WSL.
 
 In VS Code run **Python: Select Interpreter** and choose this project's `.venv`.
 Reactivate it whenever you open a new terminal.
+Verify the terminal interpreter before continuing:
+
+```text
+python -c "import sys; print(sys.executable)"
+python -m pip --version
+```
+
+Both paths should refer to the demo's `.venv`. Selecting the editor interpreter
+does not necessarily change an already-open terminal. If `pytest` is missing,
+install `requirements-dev.txt` with this same interpreter; do not install it
+globally as a workaround.
 
 ## 3. Run the baseline
 
@@ -68,9 +95,19 @@ is implemented. Leave improvements for the following labs.
 ```text
 git init -b main
 git add .
+git diff --cached --stat
+git diff --cached
+```
+
+**Stop and inspect the staged files before committing or publishing.** They
+should be only the items listed above. Then:
+
+```text
 git commit -m "Add sales workshop starter"
 gh auth status
 gh repo create copilot-workshop-demo --private --source=. --remote=origin --push
+gh repo view --json nameWithOwner,visibility,url
+git status
 ```
 
 This creates a private repository under your authenticated account. If you need
@@ -78,6 +115,11 @@ an organization, use `OWNER/copilot-workshop-demo` instead. If the name already
 exists, choose a new demo name; do not overwrite or delete an existing repo.
 Only publish after checking that the staged files contain the starter, not `.venv`
 or personal files.
+The repository visibility must be `PRIVATE`. If Git reports an existing
+repository or unexpected remote, stop and check `git rev-parse --show-toplevel`
+and `git remote -v`; use a fresh folder instead of deleting existing Git metadata.
+If `git init -b main` is unsupported, use `git init` followed by `git branch -M main`
+only in this new demo repository.
 
 If Git needs your author identity, configure your own approved name/email locally.
 Never paste tokens into chat. For Copilot-assisted commits, retain the
